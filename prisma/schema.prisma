@@ -1,0 +1,22 @@
+// This is your Prisma schema file,
+// Learn more about it in the official Prisma documentation: https://pris.ly/d/prisma-schema
+
+// The generator block specifies which Prisma client to use.
+generator client {
+  provider = "prisma-client-js" // This tells Prisma to generate a JavaScript/TypeScript client
+}
+
+// The datasource block defines the database connection settings.
+datasource db {
+  provider = "postgresql"  // Specifies that the database type is PostgreSQL
+  url      = env("DATABASE_URL") // The database connection URL is loaded from an environment variable
+}
+
+// The Post model represents a table in the database.
+model Post {
+  id        String   @id @default(cuid()) // Unique identifier for each post, automatically generated using cuid()
+  title     String   @db.VarChar(255) // The title of the post, stored as a VARCHAR(255)
+  content   String   // The main content of the post, stored as a TEXT column
+  createdAt DateTime @default(now()) // Timestamp of when the post was created, defaulting to the current time
+  updatedAt DateTime @updatedAt // Automatically updates to the current time whenever the post is modified
+}
